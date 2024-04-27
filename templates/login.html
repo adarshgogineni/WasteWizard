@@ -53,16 +53,19 @@
     </style>
 </head>
 <body>
-    <form method="post">
-        {{ form.hidden_tag() }}
-        {{ form.username.label }}<br>{{ form.username(size=32) }}<br>
-        {{ form.password.label }}<br>{{ form.password(size=32) }}<br>
-        <input type="submit" value="Login">
-        {% if error %}
-        <p style="color: red;">{{ error }}</p>
-        <a href="{{ url_for('login') }}">Try again</a>
-        {% endif %}
-        <p>Don't have an account? <a href="{{ url_for('register') }}">Register here</a></p>
-    </form>
+    <div style="display: flex; flex-direction: column; align-items: center;">
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" style="width: 200px; height: auto;">
+        <form method="post" style="margin-top: 20px;">
+            {{ form.hidden_tag() }}
+            {{ form.username.label }}<br>{{ form.username(size=32) }}<br>
+            {{ form.password.label }}<br>{{ form.password(size=32) }}<br>
+            <input type="submit" value="Login">
+            {% if error %}
+            <p style="color: red;">{{ error }}</p>
+            <a href="{{ url_for('login') }}">Try again</a>
+            {% endif %}
+            <p>Don't have an account? <a href="{{ url_for('register') }}">Register here</a></p>
+        </form>
+    </div>
 </body>
 </html>

@@ -1,7 +1,7 @@
 import os
 from werkzeug.utils import secure_filename
 from flask import Flask, render_template, redirect, url_for, request
-from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user
+from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField
 from wtforms.validators import InputRequired
@@ -17,8 +17,11 @@ app.config['ALLOWED_EXTENSIONS'] = {'jpg', 'jpeg'}
 login_manager = LoginManager()
 login_manager.init_app(app)
 
-# Assuming user data is stored like this
-users = {'user1': {'password': 'pass1'}, 'user2': {'password': 'pass2'}}
+# temporary database
+users = {
+    'user1': {'password': 'pass1', 'first_name': 'John', 'last_name': 'Doe', 'items_recycled': 5},
+    'user2': {'password': 'pass2', 'first_name': 'Jane', 'last_name': 'Doe', 'items_recycled': 3}
+}
 
 
 #check file
@@ -28,13 +31,17 @@ def allowed_file(filename):
 
 
 class User(UserMixin):
-    def __init__(self, username):
+    def __init__(self, username, first_name, last_name, items_recycled):
         self.id = username
+        self.first_name = first_name
+        self.last_name = last_name
+        self.items_recycled = items_recycled
 
 @login_manager.user_loader
 def load_user(user_id):
     if user_id in users:
-        return User(user_id)
+        user_info = users[user_id]
+        return User(user_id, user_info['first_name'], user_info['last_name'], user_info['items_recycled'])
     return None
 
 class LoginForm(FlaskForm):
@@ -54,9 +61,10 @@ def login():
         username = form.username.data
         password = form.password.data
         if username in users and users[username]['password'] == password:
-            user = User(username)
+            user_info = users[username]
+            user = User(username, user_info['first_name'], user_info['last_name'], user_info['items_recycled'])
             login_user(user)
-            return redirect(url_for('camera'))
+            return redirect(url_for('dashboard'))
         else:
             error = 'Invalid username or password'
     return render_template('login.html', form=form, error=error)
@@ -69,10 +77,10 @@ def register():
         return redirect(url_for('login'))
     return render_template('register.html', form=form)
 
-@app.route('/camera')
+@app.route('/dashboard')
 @login_required
-def camera():
-    return render_template('camera.html')
+def dashboard():
+    return render_template('dashboard.html')
 
 @app.route('/upload_image', methods=['POST'])
 @login_required
@@ -85,6 +93,12 @@ def upload_image():
     return jsonify({'message': 'No file found'}), 400
 
 
+@app.route('/Profile')
+@login_required
+def profile():
+    user_info = users[current_user.id]
+    print(user_info)
+    return render_template('Profile.html', user=user_info, username=current_user.id)
 
 
 @app.route('/logout')
