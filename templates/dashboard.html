@@ -7,6 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Image Upload</title>
     <style>
+        body {
+        background-color: #c8ffd7;
+    }
         #drop-area {
             border: 2px dashed #4CAF50; /* Green border */
             border-radius: 5px;
@@ -21,33 +24,42 @@
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="{{ url_for('dashboard') }}">MyApp</a>
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #006400;">
+        <a class="navbar-brand" href="{{ url_for('dashboard') }}">
+            <img src="{{ url_for('static', filename='smalllogo.png') }}" alt="Logo" style="height: 50px;">
+        </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link btn btn-light" href="{{ url_for('profile') }}" style="font-size: larger; font-weight: bold; color: #006400;">Profile</a>
+                </li>
+            </ul>
             <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <a class="nav-link" href="{{ url_for('dashboard') }}">Dashboard</a>
-                </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('profile') }}">Profile</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+                    <a class="nav-link btn btn-light" href="{{ url_for('logout') }}" style="font-size: larger; font-weight: bold; color: #006400;">Logout</a>
                 </li>
             </ul>
         </div>
     </nav>
     
-    <h1>Upload your image</h1>
-    <div id="drop-area">
-        <form class="my-form">
-            <p>Upload a file with the file dialog or by dragging and dropping onto the dashed region</p>
-            <input type="file" id="fileElem" accept="image/jpeg" multiple onchange="handleFiles(this.files)">
-            <label class="button" for="fileElem">Select some files</label>
-        </form>
+    <div style="display: flex; justify-content: space-between;">
+        <div id="drop-area" style="border: 1px solid #ccc; padding: 20px; margin: 20px; background-color: #fff; flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+            <h1>Upload your image</h1>
+            <form class="my-form" style="display: flex; flex-direction: column; align-items: center;">
+                <p>Upload a file with the file dialog or by dragging and dropping onto the dashed region</p>
+                <button class="btn btn-light" style="display: flex; align-items: center; justify-content: center; font-size: larger; font-weight: bold;">
+                    <img src="{{ url_for('static', filename='upload.png') }}" alt="upload" style="width: 25px; margin-right: 10px;">
+                    <input type="file" id="fileElem" accept="image/jpeg" multiple onchange="handleFiles(this.files)" style="display: none;">
+                    <label for="fileElem">Select a file</label>
+                </button>
+            </form>
+        </div>
+        <div id="other-area" style="border: 1px solid #ccc; padding: 20px; margin: 20px; background-color: #fff; flex: 1;">
+            <!-- Other content goes here -->
+        </div>
     </div>
 
     <script>

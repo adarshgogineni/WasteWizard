@@ -51,6 +51,8 @@ class LoginForm(FlaskForm):
 class RegisterForm(FlaskForm):
     username = StringField('Username', validators=[InputRequired()])
     password = PasswordField('Password', validators=[InputRequired()])
+    first_name = StringField('First Name', validators=[InputRequired()])
+    last_name = StringField('Last Name', validators=[InputRequired()])
 
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/login', methods=['GET', 'POST'])
@@ -73,7 +75,12 @@ def login():
 def register():
     form = RegisterForm()
     if form.validate_on_submit():
-        users[form.username.data] = {'password': form.password.data}
+        users[form.username.data] = {
+            'password': form.password.data,
+            'first_name': form.first_name.data,
+            'last_name': form.last_name.data,
+            'items_recycled': 0
+        }
         return redirect(url_for('login'))
     return render_template('register.html', form=form)
 
