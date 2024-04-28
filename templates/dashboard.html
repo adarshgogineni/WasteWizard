@@ -64,9 +64,13 @@
         </form>
     </div>
 
-    <button id="process-image" class="btn btn-light" style="display: flex; align-items: center; justify-content: center; font-size: larger; font-weight: bold; margin-top: 20px; background-color: rgb(0, 186, 0); color: white; margin-left: auto; margin-right: auto; display: block; padding: 20px 40px; border-radius: 50px; font-size: 2em; transition: background-color 0.3s;">
-        Scan Image
-    </button>
+    <div id="message-box" style="display: none; margin: 20px auto; max-width: 80%; padding: 20px; border-radius: 5px; background-color: #6cf883; color: #00d986; text-align: center;"></div>
+
+    <a href="{{ url_for('classify_image') }}">
+        <button id="process-image" class="btn btn-light" style="display: flex; align-items: center; justify-content: center; font-size: larger; font-weight: bold; margin-top: 20px; background-color: rgb(0, 186, 0); color: white; margin-left: auto; margin-right: auto; display: block; padding: 20px 40px; border-radius: 50px; font-size: 2em; transition: background-color 0.3s;">
+            Scan Image
+        </button>
+    </a>
 
     
     
@@ -128,17 +132,17 @@
             .then(response => response.json())
             .then(data => {
                 // Update the message div with the response
-                let messageElement = document.getElementById('message');
+                let messageElement = document.getElementById('message-box');
                 messageElement.style.display = 'block';
                 messageElement.textContent = data.message;
-                messageElement.style.color = 'green'; // Set text color to green for success
+                messageElement.style.color = 'white'; // Set text color to green for success
                 setTimeout(function() { // Set timeout to hide the message after 5 seconds
                     messageElement.style.display = 'none';
                 }, 2500);
             })
             .catch(error => {
                 console.error('Error:', error);
-                let messageElement = document.getElementById('message');
+                let messageElement = document.getElementById('message-box');
                 messageElement.style.display = 'block';
                 messageElement.textContent = 'Failed to upload image';
                 messageElement.style.color = 'red'; // Set text color to red for error

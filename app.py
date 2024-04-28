@@ -1,4 +1,5 @@
 import os
+import random
 from werkzeug.utils import secure_filename
 from flask import Flask, render_template, redirect, url_for, request, session
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
@@ -7,6 +8,7 @@ from wtforms import StringField, PasswordField
 from wtforms.validators import InputRequired
 from flask import jsonify
 from flask import flash
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your-secret-key'
@@ -137,6 +139,35 @@ def profile():
         return redirect(url_for('login'))
 
     return render_template('profile.html', user=user_info)
+
+
+@app.route('/classify_image', methods=['GET'])
+@login_required
+def classify_image():
+    # Get the list of files in the uploads directory
+    files = os.listdir(app.config['UPLOAD_FOLDER'])
+
+    # If there are no files, flash a message and redirect to the dashboard
+    if not files:
+        flash('No files in the uploads directory')
+        return redirect(url_for('dashboard'))
+
+    # Get the first file
+    filename = files[0]
+    filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+
+    # Run the classification function on the image
+    result = classify(filepath)
+
+    # Delete the file
+    os.remove(filepath)
+
+    # Render the results template with the classification result
+    return render_template('results.html', classification=result)
+
+def classify(filepath):
+    # For now, this function just returns a random classification result
+    return random.choice([0, 1])
 
 @app.route('/achievements')
 @login_required
