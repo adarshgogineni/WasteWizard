@@ -1,6 +1,6 @@
 import os
 from werkzeug.utils import secure_filename
-from flask import Flask, render_template, redirect, url_for, request
+from flask import Flask, render_template, redirect, url_for, request, session
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField
@@ -33,6 +33,7 @@ def allowed_file(filename):
 class User(UserMixin):
     def __init__(self, username, first_name, last_name, items_recycled):
         self.id = username
+        self.username = username
         self.first_name = first_name
         self.last_name = last_name
         self.items_recycled = items_recycled
@@ -66,6 +67,7 @@ def login():
             user_info = users[username]
             user = User(username, user_info['first_name'], user_info['last_name'], user_info['items_recycled'])
             login_user(user)
+            session['user'] = user_info
             return redirect(url_for('dashboard'))
         else:
             error = 'Invalid username or password'
@@ -99,14 +101,52 @@ def upload_image():
         return jsonify({'message': 'File uploaded successfully!'})
     return jsonify({'message': 'No file found'}), 400
 
-
-@app.route('/Profile')
+@app.route('/profile', methods=['GET', 'POST'])
 @login_required
 def profile():
-    user_info = users[current_user.id]
-    print(user_info)
-    return render_template('Profile.html', user=user_info, username=current_user.id)
+    if request.method == 'POST':
+        old_password = request.form.get('old_password')
+        new_password = request.form.get('new_password')
+        confirm_new_password = request.form.get('confirm_new_password')
 
+        # Check if old password matches the current user's password
+        if users[current_user.id]['password'] != old_password:
+            flash('Old password does not match current password!')
+            return redirect(url_for('profile'))
+
+        # Check if new password and confirm new password fields match
+        if new_password != confirm_new_password:
+            flash('New passwords do not match!')
+            return redirect(url_for('profile'))
+
+        # Update the user's password
+        users[current_user.username]['password'] = new_password
+
+        print (users[current_user.username])
+
+        # Store the updated user information in the session
+        session['user'] = users[current_user.username]
+
+        flash('Password updated successfully!', 'success')
+        return redirect(url_for('profile'))
+
+    # Retrieve the user information from the session
+    user_info = session.get('user')
+    if user_info is None:
+        flash('No user information in session')
+        return redirect(url_for('login'))
+
+    return render_template('profile.html', user=user_info)
+
+@app.route('/achievements')
+@login_required
+def achievements():
+    return render_template('achievements.html')
+
+@app.route('/faq')
+@login_required
+def faq():
+    return render_template('faq.html')
 
 @app.route('/logout')
 @login_required

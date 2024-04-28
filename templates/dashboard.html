@@ -34,33 +34,47 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link btn btn-light" href="{{ url_for('profile') }}" style="font-size: larger; font-weight: bold; color: #006400;">Profile</a>
+                    <a class="nav-link btn btn-light" href="{{ url_for('profile') }}" style="font-size: larger; font-weight: bold; color: #006400; margin-right: 20px">My Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn btn-light" href="{{ url_for('achievements') }}" style="font-size: larger; font-weight: bold; color: #006400; margin-right: 20px">Achievements</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn btn-light" href="{{ url_for('faq') }}" style="font-size: larger; font-weight: bold; color: #006400; margin-right: 20px">FAQ</a>
                 </li>
             </ul>
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link btn btn-light" href="{{ url_for('logout') }}" style="font-size: larger; font-weight: bold; color: #006400;">Logout</a>
+                    <a class="nav-link btn btn-light" href="{{ url_for('logout') }}" style="font-size: larger; font-weight: bold; color: #f50101;">Logout</a>
                 </li>
             </ul>
         </div>
     </nav>
     
-    <div style="display: flex; justify-content: space-between;">
-        <div id="drop-area" style="border: 1px solid #ccc; padding: 20px; margin: 20px; background-color: #fff; flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-            <h1>Upload your image</h1>
-            <form class="my-form" style="display: flex; flex-direction: column; align-items: center;">
-                <p>Upload a file with the file dialog or by dragging and dropping onto the dashed region</p>
-                <button class="btn btn-light" style="display: flex; align-items: center; justify-content: center; font-size: larger; font-weight: bold;">
-                    <img src="{{ url_for('static', filename='upload.png') }}" alt="upload" style="width: 25px; margin-right: 10px;">
-                    <input type="file" id="fileElem" accept="image/jpeg" multiple onchange="handleFiles(this.files)" style="display: none;">
-                    <label for="fileElem">Select a file</label>
-                </button>
-            </form>
-        </div>
-        <div id="other-area" style="border: 1px solid #ccc; padding: 20px; margin: 20px; background-color: #fff; flex: 1;">
-            <!-- Other content goes here -->
-        </div>
+    <img src="{{ url_for('static', filename='logo.png') }}" alt="logo" style="display: block; margin-left: auto; margin-right: auto; width: 15%;">
+    <div id="drop-area" style="border: 1px solid #ccc; padding: 20px; margin: 20px; background-color: #fff; flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; max-width: 80%; margin-left: auto; margin-right: auto;">
+        <h1>Upload your image</h1>
+        <form class="my-form" style="display: flex; flex-direction: column; align-items: center;">
+            <p>Upload a file with the file dialog or by dragging and dropping onto the dashed region</p>
+            <button class="btn btn-light" style="display: flex; align-items: center; justify-content: center; font-size: larger; font-weight: bold;">
+                <img src="{{ url_for('static', filename='upload.png') }}" alt="upload" style="width: 25px; margin-right: 10px;">
+                <input type="file" id="fileElem" accept="image/jpeg" multiple onchange="handleFiles(this.files)" style="display: none;">
+                <label for="fileElem">Select a file</label>
+            </button>
+        </form>
     </div>
+
+    <button id="process-image" class="btn btn-light" style="display: flex; align-items: center; justify-content: center; font-size: larger; font-weight: bold; margin-top: 20px; background-color: rgb(0, 186, 0); color: white; margin-left: auto; margin-right: auto; display: block; padding: 20px 40px; border-radius: 50px; font-size: 2em; transition: background-color 0.3s;">
+        Scan Image
+    </button>
+
+    
+    
+    <style>
+        #process-image:hover {
+            background-color: rgb(0, 78, 0) !important;
+        }
+    </style>
 
     <script>
         let dropArea = document.getElementById('drop-area');
