@@ -1,10 +1,154 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FAQ</title>
+    <style>
+        body {
+            background-color: #c8ffd7;
+        }
+        .card {
+            margin: 20px auto;
+            max-width: 80%;
+            padding: 20px;
+            border-radius: 5px;
+            background-color: #fff;
+        }
+        .center-content {
+        text-align: center;
+        }
+        .home-button {
+        display: inline-block;
+        background-color: blue;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 20px;
+        border: none;
+        text-decoration: none;
+        cursor: pointer;
+     }
+    </style>
 </head>
 <body>
-    <h1>FAQ</h1>
-    <!-- Add your FAQ content here -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #006400;">
+        <a class="navbar-brand" href="{{ url_for('dashboard') }}">
+            <img src="{{ url_for('static', filename='smalllogo.png') }}" alt="Logo" style="height: 50px;">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link btn btn-light" href="{{ url_for('profile') }}" style="font-size: larger; font-weight: bold; color: #006400; margin-right: 20px">My Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn btn-light" href="{{ url_for('achievements') }}" style="font-size: larger; font-weight: bold; color: #006400; margin-right: 20px">Achievements</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn btn-light" href="{{ url_for('faq') }}" style="font-size: larger; font-weight: bold; color: #006400; margin-right: 20px">FAQ</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link btn btn-light" href="{{ url_for('logout') }}" style="font-size: larger; font-weight: bold; color: #f50101;">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="card">
+        <h1>Frequently Asked Questions: </h1>
+        <!-- Add your FAQ content here -->
+        <div id="accordion">
+            <!-- FAQ 1 -->
+            <div class="card">
+                <div class="card-header" id="headingfour">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapsefour" aria-expanded="true" aria-controls="collapsefour">
+                            1. What materials are commonly recyclable?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapsefour" class="collapse" aria-labelledby="headingfour" data-parent="#accordion">
+                    <div class="card-body">
+                        Some commonly recyclable items include cardboard, paper, certain plastic, glass, etc.
+                    </div>
+                </div>
+            </div>
+            <!-- FAQ 2 -->
+            <div class="card">
+                <div class="card-header" id="headingOne">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            2. How do I know if something is recyclable or not?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                    <div class="card-body">
+                        Recyclables have symbols on them that contain numbers in the middle. Different regions are able to recycle different numbers. 1 and 2s are very commonly recycled.
+                    </div>
+                </div>
+            </div>
+            <!-- FAQ 3 -->
+            <div class="card">
+                <div class="card-header" id="headingTwo">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                            3. What is the impact of recycling on energy consumption?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                    <div class="card-body">
+                        Recycling very often uses less energy that creating the items from scratch using raw materials.
+                    </div>
+                </div>
+            </div>
+            <!-- FAQ 4 -->
+            <div class="card">
+                <div class="card-header" id="headingThree">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                            4. What is the impact of recycling on landfills?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                    <div class="card-body">
+                        Even if you do recycle something, be sure to clean it out thoroughly because often recycling centers do not have the resources to clean them out properly and will still through items into landfills if they are not clean enough to be recycled. This leads to many recyclable items still ending up in landfills.
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 5 -->
+            <div class="card">
+                <div class="card-header" id="headingfive">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapsefive" aria-expanded="true" aria-controls="collapsefive">
+                            5. What roles do consumers play in recycling?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapsefive" class="collapse" aria-labelledby="headingfive" data-parent="#accordion">
+                    <div class="card-body">
+                        Consumers are the ones placing these items into te recycling. Being aware of how your actions impact their processing and repurposing is vital to making the recyling processs better.
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+    </div>
+    <div class="center-content">
+        <a href="/dashboard" class="home-button">Go Home</a>
+    </div>
 </body>
 </html>

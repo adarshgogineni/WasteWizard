@@ -8,6 +8,11 @@ from wtforms import StringField, PasswordField
 from wtforms.validators import InputRequired
 from flask import jsonify
 from flask import flash
+import pickle
+import keras
+import tensorflow as tf
+from keras.preprocessing import image
+import numpy as np
 
 
 app = Flask(__name__)
@@ -21,8 +26,10 @@ login_manager.init_app(app)
 
 # temporary database
 users = {
-    'user1': {'password': 'pass1', 'first_name': 'John', 'last_name': 'Doe', 'items_recycled': 5},
-    'user2': {'password': 'pass2', 'first_name': 'Jane', 'last_name': 'Doe', 'items_recycled': 3}
+    'user1': {'password': 'pass1', 'first_name': 'John', 'last_name': 'Doe', 'items_recycled': 20},
+    'user2': {'password': 'pass2', 'first_name': 'Jane', 'last_name': 'Doe', 'items_recycled': 45},
+    'user3': {'password': 'pass3', 'first_name': 'John', 'last_name': 'Doe', 'items_recycled': 70},
+    'user4': {'password': 'pass4', 'first_name': 'Jane', 'last_name': 'Doe', 'items_recycled': 95}
 }
 
 
@@ -141,7 +148,20 @@ def profile():
     return render_template('profile.html', user=user_info)
 
 
-@app.route('/classify_image', methods=['GET'])
+
+from keras.models import load_model
+
+try:
+    model = load_model('/Users/adarsh/Documents/Code/GitHub/WasteWizard/recycling_classification_model.h5')
+    print("Model loaded successfully.")
+except Exception as e:
+    print(f"Failed to load model: {e}")
+
+
+
+
+
+@app.route('/classify_image', methods=['GET', 'POST'])
 @login_required
 def classify_image():
     # Get the list of files in the uploads directory
@@ -166,13 +186,24 @@ def classify_image():
     return render_template('results.html', classification=result)
 
 def classify(filepath):
-    # For now, this function just returns a random classification result
-    return random.choice([0, 1])
+    img_width, img_height = 200, 200  # specify the dimensions
+    img = image.load_img(filepath, target_size=(img_width, img_height))
+    img_tensor = image.img_to_array(img)
+    img_tensor = np.expand_dims(img_tensor, axis=0)
+    img_tensor /= 255.
+
+    prediction = model.predict(img_tensor)
+    result = "recyclable" if prediction[0] < 0.5 else "non-recyclable"
+    return result
+
+
 
 @app.route('/achievements')
 @login_required
 def achievements():
-    return render_template('achievements.html')
+    user_info = users[current_user.id]
+    items_recycled = user_info['items_recycled']
+    return render_template('achievements.html', items_recycled=items_recycled)
 
 @app.route('/faq')
 @login_required
