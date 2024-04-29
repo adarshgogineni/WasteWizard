@@ -152,7 +152,7 @@ def profile():
 from keras.models import load_model
 
 try:
-    model = load_model('/Users/adarsh/Documents/Code/GitHub/WasteWizard/recycling_classification_model.h5')
+    model = load_model('recycling_classification_model.h5')
     print("Model loaded successfully.")
 except Exception as e:
     print(f"Failed to load model: {e}")
