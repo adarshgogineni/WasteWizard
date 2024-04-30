@@ -21,10 +21,51 @@
         #fileElem {
             display: none;
         }
+
+        .centered-and-big {
+        text-align: center;
+        font-size: 2.5em; /* adjust as needed */
+        font-family: 'Arial', sans-serif; /* adjust as needed */
+        max-width: 800px; /* adjust as needed */
+        margin: auto;
+        }
+        .center-text {
+            text-align: center;
+            font-size: 1.5em; /* adjust as needed */
+            font-family: 'Arial', sans-serif; /* adjust as needed */
+            max-width: 800px; /* adjust as needed */
+            margin: auto;
+        }
+        .custom-alert {
+            background-color: rgb(248, 100, 100);
+            color: rgb(255, 255, 255);
+            border: 1px solid #ccc;
+            transition: opacity 3s;
+            padding: 20px;
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin:auto;
+            max-width: 50%;
+        }
+        .custom-alert-success {
+            background-color: rgb(100, 248, 100); 
+        }
+        .custom-alert .alert-message {
+            font-size: 1.2em;
+            font-weight: bold;
+            text-align: center;
+        }
+        .custom-alert .close-button {
+            cursor: pointer;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #006400;">
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #c5c5c5;">
         <a class="navbar-brand" href="{{ url_for('dashboard') }}">
             <img src="{{ url_for('static', filename='smalllogo.png') }}" alt="Logo" style="height: 50px;">
         </a>
@@ -40,7 +81,7 @@
                     <a class="nav-link btn btn-light" href="{{ url_for('achievements') }}" style="font-size: larger; font-weight: bold; color: #006400; margin-right: 20px">Achievements</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link btn btn-light" href="{{ url_for('faq') }}" style="font-size: larger; font-weight: bold; color: #006400; margin-right: 20px">FAQ</a>
+                    <a class="nav-link btn btn-light" href="{{ url_for('faq') }}" style="font-size: larger; font-weight: bold; color: #006400; margin-right: 20px">Learn More</a>
                 </li>
             </ul>
             <ul class="navbar-nav">
@@ -52,23 +93,48 @@
     </nav>
     
     <img src="{{ url_for('static', filename='logo.png') }}" alt="logo" style="display: block; margin-left: auto; margin-right: auto; width: 15%;">
+    
+    <h1 style="color:darkgreen" class="centered-and-big">Recyclable? Not recyclable?</h1>
+    <h1 style="color:darkgreen" class="centered-and-big">That is the question.</h1>
+    <h2 style="color:darkgreen" class="center-text">Quickly find out if your plastic can be recycled with just a photo. Using our AI, WasteWizard will analyze the symbol and provide recycling information.</h2>
+
+    
     <div id="drop-area" style="border: 1px solid #ccc; padding: 20px; margin: 20px; background-color: #fff; flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; max-width: 80%; margin-left: auto; margin-right: auto;">
-        <h1>Upload your image</h1>
         <form class="my-form" style="display: flex; flex-direction: column; align-items: center;">
-            <p>Upload a file with the file dialog or by dragging and dropping onto the dashed region</p>
-            <button class="btn btn-light" style="display: flex; align-items: center; justify-content: center; font-size: larger; font-weight: bold;">
+            <p style="font-size: 1.5em;"><strong>1. Take a photo of your plastic’s recycling symbol, then drag and drop it here.</strong></p>
+            <img src="{{ url_for('static', filename='draganddrop.png') }}" alt="Drag and drop logo" style="display: block; margin-left: auto; margin-right: auto; width: 7%;">
+            <p style="padding-top: 20px;" class="text-center">OR</p>
+            <label for="fileElem" class="btn btn-light" style="display: flex; align-items: center; justify-content: center; font-size: larger; font-weight: bold;  background-color: rgb(0, 137, 248);">
                 <img src="{{ url_for('static', filename='upload.png') }}" alt="upload" style="width: 25px; margin-right: 10px;">
-                <input type="file" id="fileElem" accept="image/jpeg" multiple onchange="handleFiles(this.files)" style="display: none;">
-                <label for="fileElem">Select a file</label>
-            </button>
+                <span style="color: white;">Select a file</span>
+            </label>
+            <input type="file" id="fileElem" accept="image/jpeg" multiple onchange="handleFiles(this.files)" style="display: none;">
         </form>
     </div>
 
     <div id="message-box" style="display: none; margin: 20px auto; max-width: 80%; padding: 20px; border-radius: 5px; background-color: #6cf883; color: #00d986; text-align: center;"></div>
-
+    {% if message %}
+        <div id="custom-alert" class="custom-alert">
+            <span class="alert-message">{{ message }}</span>
+            <button class="close-button" onclick="closeAlert()">X</button>
+        </div>
+        <script>
+            function closeAlert() {
+                var alert = document.getElementById('custom-alert');
+                alert.style.display = 'none';
+            }
+            setTimeout(function() {
+                var alert = document.getElementById('custom-alert');
+                alert.style.opacity = '0';
+                setTimeout(function() {
+                    alert.style.display = 'none';
+                }, 2500);
+            }, 2500);
+        </script>
+    {% endif %}
     <a href="{{ url_for('classify_image') }}">
         <button id="process-image" class="btn btn-light" style="display: flex; align-items: center; justify-content: center; font-size: larger; font-weight: bold; margin-top: 20px; background-color: rgb(0, 186, 0); color: white; margin-left: auto; margin-right: auto; display: block; padding: 20px 40px; border-radius: 50px; font-size: 2em; transition: background-color 0.3s;">
-            Scan Image
+            2. Scan Image
         </button>
     </a>
     

@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAQ</title>
+    <title>Learn More</title>
     <style>
         body {
             background-color: #c8ffd7;
@@ -36,7 +36,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #006400;">
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #c5c5c5;">
         <a class="navbar-brand" href="{{ url_for('dashboard') }}">
             <img src="{{ url_for('static', filename='smalllogo.png') }}" alt="Logo" style="height: 50px;">
         </a>
@@ -52,7 +52,7 @@
                     <a class="nav-link btn btn-light" href="{{ url_for('achievements') }}" style="font-size: larger; font-weight: bold; color: #006400; margin-right: 20px">Achievements</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link btn btn-light" href="{{ url_for('faq') }}" style="font-size: larger; font-weight: bold; color: #006400; margin-right: 20px">FAQ</a>
+                    <a class="nav-link btn btn-light" href="{{ url_for('faq') }}" style="font-size: larger; font-weight: bold; color: #006400; margin-right: 20px">Learn More</a>
                 </li>
             </ul>
             <ul class="navbar-nav">
@@ -72,13 +72,13 @@
                 <div class="card-header" id="headingfour">
                     <h5 class="mb-0">
                         <button class="btn btn-link" data-toggle="collapse" data-target="#collapsefour" aria-expanded="true" aria-controls="collapsefour">
-                            1. What materials are commonly recyclable?
+                            What materials are commonly recyclable?
                         </button>
                     </h5>
                 </div>
                 <div id="collapsefour" class="collapse" aria-labelledby="headingfour" data-parent="#accordion">
                     <div class="card-body">
-                        Some commonly recyclable items include cardboard, paper, certain plastic, glass, etc.
+                        Lots of things are recyclable. The Environmental Protection Agency tracks the recycling of paper, paperboard, glass, metals, plastics, rubber, leather, textiles, wood, food, yard trimmings, and more. It’s hard to know what to do with what.
                     </div>
                 </div>
             </div>
@@ -87,13 +87,16 @@
                 <div class="card-header" id="headingOne">
                     <h5 class="mb-0">
                         <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            2. How do I know if something is recyclable or not?
+                             Tell me more about plastics.
                         </button>
                     </h5>
                 </div>
                 <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                     <div class="card-body">
-                        Recyclables have symbols on them that contain numbers in the middle. Different regions are able to recycle different numbers. 1 and 2s are very commonly recycled.
+                        Did you know the recycling rate for plastic in the United States sits dismally low? 
+                        According to estimates by the 
+                        <a href="https://www.epa.gov/facts-and-figures-about-materials-waste-and-recycling/plastics-material-specific-data" target="_blank">Environmental Protection Agency (EPA)</a>, 
+                        less than 10 percent of consumed plastic is being recycled. Instead, the majority of plastic is either incinerated or relegated to landfills, as only a select few types of plastic can be recycled.
                     </div>
                 </div>
             </div>
@@ -102,13 +105,18 @@
                 <div class="card-header" id="headingTwo">
                     <h5 class="mb-0">
                         <button class="btn btn-link" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                            3. What is the impact of recycling on energy consumption?
+                             Can’t I just recycle anything with the three arrow symbol? 
                         </button>
                     </h5>
                 </div>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
                     <div class="card-body">
-                        Recycling very often uses less energy that creating the items from scratch using raw materials.
+                        Ever wondered if that trusty three-arrow symbol on your product means it's automatically recyclable? Turns out, not necessarily. 
+
+                        Some sneaky companies slap that symbol on non-recyclable goods, leaving consumers in the dark and recycling systems overloaded. In fact, 
+                        <a href="https://www.nytimes.com/2021/09/08/climate/recycling-california.html" target="_blank">California recently took legislative action to combat this false advertising</a>. 
+
+                        Still wondering if your plastic can be recycled? Fret not! With Waste Wizard, you can swiftly figure out what's recyclable and what's not, empowering you to make informed choices and ease the burden on recycling facilities.
                     </div>
                 </div>
             </div>
@@ -117,13 +125,18 @@
                 <div class="card-header" id="headingThree">
                     <h5 class="mb-0">
                         <button class="btn btn-link" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
-                            4. What is the impact of recycling on landfills?
+                            How does WasteWizard work? 
                         </button>
                     </h5>
                 </div>
                 <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
                     <div class="card-body">
-                        Even if you do recycle something, be sure to clean it out thoroughly because often recycling centers do not have the resources to clean them out properly and will still through items into landfills if they are not clean enough to be recycled. This leads to many recyclable items still ending up in landfills.
+                        Waste Wizard is recycling guide web-application that leverages image recognition technology for material identification, enabling users to scan different recycling symbols with their phones' cameras. 
+
+                        With the integration of a pre-trained machine learning API, the app employs a dataset of recycling symbols to deliver information on how the scanned item can be recycled, if at all. 
+
+                        Waste Wizard both empowers users in making informed waste disposal decisions and instills confidence in their environmental practices.
+
                     </div>
                 </div>
             </div>
@@ -133,14 +146,24 @@
                 <div class="card-header" id="headingfive">
                     <h5 class="mb-0">
                         <button class="btn btn-link" data-toggle="collapse" data-target="#collapsefive" aria-expanded="true" aria-controls="collapsefive">
-                            5. What roles do consumers play in recycling?
+                             How can I cut down on plastic waste without recycling? 
                         </button>
                     </h5>
                 </div>
                 <div id="collapsefive" class="collapse" aria-labelledby="headingfive" data-parent="#accordion">
                     <div class="card-body">
-                        Consumers are the ones placing these items into te recycling. Being aware of how your actions impact their processing and repurposing is vital to making the recyling processs better.
-                    </div>
+                        Recycling isn’t a perfect system, but there are other ways to combat plastic pollution. 
+                        
+                        <a href="https://www.epa.gov/circulareconomy/draft-national-strategy-prevent-plastic-pollution" target="_blank">The EPA's Draft National Strategy to Prevent Plastic Pollution</a>. 
+
+                        emphasizes reducing, reusing, collecting, and capturing plastic waste. 
+
+                        Explore options such as choosing products with minimal packaging, opting for reusable alternatives, and supporting businesses that prioritize sustainable practices. 
+
+                        Additionally, advocate for policies that promote plastic reduction and participate in community clean-up efforts to prevent plastic from entering waterways. 
+
+                        By actively embracing these strategies and using WasteWizard, you play a crucial role in mitigating plastic pollution and fostering a more sustainable future.
+
                 </div>
             </div>
             

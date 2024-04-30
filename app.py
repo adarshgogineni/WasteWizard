@@ -110,9 +110,11 @@ def upload_image():
         return jsonify({'message': 'File uploaded successfully!'})
     return jsonify({'message': 'No file found'}), 400
 
+
 @app.route('/profile', methods=['GET', 'POST'])
 @login_required
 def profile():
+    message = None
     if request.method == 'POST':
         old_password = request.form.get('old_password')
         new_password = request.form.get('new_password')
@@ -120,32 +122,31 @@ def profile():
 
         # Check if old password matches the current user's password
         if users[current_user.id]['password'] != old_password:
-            flash('Old password does not match current password!')
-            return redirect(url_for('profile'))
+            message = 'Old password does not match current password!'
+            return render_template('profile.html', user=users[current_user.username], message=message)
 
         # Check if new password and confirm new password fields match
         if new_password != confirm_new_password:
-            flash('New passwords do not match!')
-            return redirect(url_for('profile'))
+            message = 'New passwords do not match!'
+            return render_template('profile.html', user=users[current_user.username], message=message)
 
         # Update the user's password
         users[current_user.username]['password'] = new_password
 
-        print (users[current_user.username])
-
         # Store the updated user information in the session
         session['user'] = users[current_user.username]
 
-        flash('Password updated successfully!', 'success')
-        return redirect(url_for('profile'))
-
+        message = 'Password updated successfully!'
+        message_type = 'success'
+        return render_template('profile.html', user=users[current_user.username], message=message, message_type=message_type)
+    
     # Retrieve the user information from the session
     user_info = session.get('user')
     if user_info is None:
-        flash('No user information in session')
-        return redirect(url_for('login'))
+        message = 'No user information in session'
+        return render_template('login.html', message=message)
 
-    return render_template('profile.html', user=user_info)
+    return render_template('profile.html', user=user_info, message=message)
 
 
 
@@ -169,8 +170,8 @@ def classify_image():
 
     # If there are no files, flash a message and redirect to the dashboard
     if not files:
-        flash('No files in the uploads directory')
-        return redirect(url_for('dashboard'))
+        message = 'Please Upload a File! ' 
+        return render_template('dashboard.html', message=message)
 
     # Get the first file
     filename = files[0]

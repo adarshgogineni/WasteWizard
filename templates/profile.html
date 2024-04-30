@@ -52,7 +52,7 @@
 
 </head>
 <body style="background-color: #c8ffd7;">
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #006400;">
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #c5c5c5;">
         <a class="navbar-brand" href="{{ url_for('dashboard') }}">
             <img src="{{ url_for('static', filename='smalllogo.png') }}" alt="Logo" style="height: 50px;">
         </a>
@@ -68,7 +68,7 @@
                     <a class="nav-link btn btn-light" href="{{ url_for('achievements') }}" style="font-size: larger; font-weight: bold; color: #006400; margin-right: 20px">Achievements</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link btn btn-light" href="{{ url_for('faq') }}" style="font-size: larger; font-weight: bold; color: #006400; margin-right: 20px">FAQ</a>
+                    <a class="nav-link btn btn-light" href="{{ url_for('faq') }}" style="font-size: larger; font-weight: bold; color: #006400; margin-right: 20px">Learn More</a>
                 </li>
             </ul>
             <ul class="navbar-nav">
@@ -127,29 +127,25 @@
 
             </div>
         </div>
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                {% for category, message in messages %}
-                    <div id="custom-alert" class="custom-alert custom-alert-{{ category }}">
-                        <span class="alert-message">{{ message }}</span>
-                        <button class="close-button" onclick="closeAlert()">X</button>
-                    </div>
-                    <script>
-                        function closeAlert() {
-                            var alert = document.getElementById('custom-alert');
-                            alert.style.display = 'none';
-                        }
-                        setTimeout(function() {
-                            var alert = document.getElementById('custom-alert');
-                            alert.style.opacity = '0';
-                            setTimeout(function() {
-                                alert.style.display = 'none';
-                            }, 2500);
-                        }, 2500);
-                    </script>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
+        {% if message %}
+                <div id="custom-alert" class="custom-alert {% if message_type == 'success' %}custom-alert-success{% endif %}">
+                    <span class="alert-message">{{ message }}</span>
+                    <button class="close-button" onclick="closeAlert()">X</button>
+                </div>
+            <script>
+                function closeAlert() {
+                    var alert = document.getElementById('custom-alert');
+                    alert.style.display = 'none';
+                }
+                setTimeout(function() {
+                    var alert = document.getElementById('custom-alert');
+                    alert.style.opacity = '0';
+                    setTimeout(function() {
+                        alert.style.display = 'none';
+                    }, 2500);
+                }, 2500);
+            </script>
+        {% endif %}
     </div>
 
     <div class="center-content padded">
