@@ -104,7 +104,7 @@
             <div class="progress" style="height: 30px; width: 50%; margin: auto; margin-top: 20px;">
                 {% set progress = ((items_recycled - 25) / 25) * 100 %}
                 <div class="progress-bar" role="progressbar" style="width: {{ progress|int }}%;" aria-valuenow="{{ progress|int }}" aria-valuemin="0" aria-valuemax="100">
-                    {{ progress|int }}%
+                    <span>Current Level Progress: {{ progress|int }}%</span>
                 </div>
             </div>
         {% endif %}
@@ -117,7 +117,7 @@
             <div class="progress" style="height: 30px; width: 50%; margin: auto; margin-top: 20px;">
                 {% set progress = ((items_recycled - 50) / 25) * 100 %}
                 <div class="progress-bar" role="progressbar" style="width: {{ progress|int }}%;" aria-valuenow="{{ progress|int }}" aria-valuemin="0" aria-valuemax="100">
-                    {{ progress|int }}%
+                    <span>Current Level Progress: {{ progress|int }}%</span>
                 </div>
             </div>
         {% endif %}
