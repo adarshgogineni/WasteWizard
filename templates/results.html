@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results</title>
+    <style>
+        body {
+            background-color: #c8ffd7;
+        }
+        .card {
+            margin: 20px auto;
+            max-width: 80%;
+            padding: 20px;
+            border-radius: 5px;
+            background-color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #c5c5c5;">
+        <a class="navbar-brand" href="{{ url_for('dashboard') }}">
+            <img src="{{ url_for('static', filename='smalllogo.png') }}" alt="Logo" style="height: 50px;">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link btn btn-light" href="{{ url_for('profile') }}" style="font-size: larger; font-weight: bold; color: #006400; margin-right: 20px">My Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn btn-light" href="{{ url_for('achievements') }}" style="font-size: larger; font-weight: bold; color: #006400; margin-right: 20px">Achievements</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn btn-light" href="{{ url_for('faq') }}" style="font-size: larger; font-weight: bold; color: #006400; margin-right: 20px">Learn More</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link btn btn-light" href="{{ url_for('logout') }}" style="font-size: larger; font-weight: bold; color: #f50101;">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <img src="{{ url_for('static', filename='logo.png') }}" alt="logo" style="display: block; margin-left: auto; margin-right: auto; width: 15%;">
+
+
+    <div class="card text-center">
+        <h1>Scan Results: </h1>
+        {% if classification == 'recyclable' %}
+            <p class="text-success display-4 font-weight-bold">{{ classification|upper }}!</p>
+        {% else %}
+            <p class="text-danger display-4 font-weight-bold">{{ classification|upper }}!</p>
+        {% endif %}
+    </div>
+
+    <div class="text-center">
+        <a href="{{ url_for('dashboard') }}" style="background-color: blue;" class="btn btn-primary rounded-pill">Scan Another Image</a>
+    </div>
+
+
+</body>
+</html>

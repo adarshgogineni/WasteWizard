@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #c8ffd7;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        form {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        input[type=text], input[type=password] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-top: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        input[type=submit] {
+            background-color: rgb(0, 120, 0); /* Darker green */
+            color: rgb(255, 255, 255);
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 12px;
+        }
+        input[type=submit]:hover {
+            background-color: #019309;
+        }
+        p {
+            text-align: center;
+        }
+        a {
+            color: #0044ff;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div style="display: flex; flex-direction: column; align-items: center;">
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" style="width: 200px; height: auto;">
+        <form method="post" style="margin-top: 20px;">
+            {{ form.hidden_tag() }}
+            {{ form.username.label }}<br>{{ form.username(size=32) }}<br>
+            {{ form.password.label }}<br>{{ form.password(size=32) }}<br>
+            <input type="submit" value="Login">
+            {% if error %}
+            <p style="color: red;">{{ error }}</p>
+            <a href="{{ url_for('login') }}">Try again</a>
+            {% endif %}
+            <p>Don't have an account? <a href="{{ url_for('register') }}" style="color: #0000ff; text-decoration: underline;">Register here</a></p>
+        </form>
+    </div>
+</body>
+</html>
