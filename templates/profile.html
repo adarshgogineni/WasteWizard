@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <title>Profile</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -45,6 +45,8 @@
         .padded {
         padding: 20px; /* adjust as needed */
     }
+
+   
         
     </style>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -83,46 +85,63 @@
         <div class="card">
             <div class="card-body">
                 <h1 class="card-title">Profile</h1>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">Username</span>
+                <label for="username">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Username</span>
+                        </div>
+                        <input type="text" class="form-control" name="username" value="{{current_user.username }}" readonly>
                     </div>
-                    <input type="text" class="form-control" name="username" value="{{current_user.username }}" readonly>
-                </div>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">First Name</span>
-                    </div>
-                    <input type="text" class="form-control" name="first_name" value="{{ user.first_name }}" readonly>
-                </div>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">Last Name</span>
-                    </div>
-                    <input type="text" class="form-control" name="last_name" value="{{ user.last_name }}" readonly>
-                </div>
+                </label>
 
-                <h2>Update Password</h2>
+                <label for="first_name">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">First Name</span>
+                        </div>
+                        <input type="text" class="form-control" name="first_name" value="{{ user.first_name }}" readonly>
+                    </div>
+                </label>
+                
+                <label for="last_name">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Last Name</span>
+                        </div>
+                        <input type="text" class="form-control" name="last_name" value="{{ user.last_name }}" readonly>
+                    </div>
+                </label>
+
+                <h2 style="padding-top: 20px;">Update Password</h2>
                 <form action="{{ url_for('profile') }}" method="post">
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">Old Password</span>
+                    <label for="old_password">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Old Password</span>
+                            </div>
+                            <input type="password" class="form-control" id="old_password" name="old_password" required>
                         </div>
-                        <input type="password" class="form-control" id="old_password" name="old_password" required>
-                    </div>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">New Password</span>
+                    </label>
+                
+                    <label for="new_password">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">New Password</span>
+                            </div>
+                            <input type="password" class="form-control" id="new_password" name="new_password" required>
                         </div>
-                        <input type="password" class="form-control" id="new_password" name="new_password" required>
-                    </div>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">Confirm New Password</span>
+                    </label>
+                
+                    <label for="confirm_new_password">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Confirm New Password</span>
+                            </div>
+                            <input type="password" class="form-control" id="confirm_new_password" name="confirm_new_password" required>
                         </div>
-                        <input type="password" class="form-control" id="confirm_new_password" name="confirm_new_password" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Update Password</button>
+                    </label>
+                
+                    <button type="submit" class="home-button">Update Password</button>
                 </form>
 
             </div>
