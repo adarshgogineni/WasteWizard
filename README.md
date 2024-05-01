@@ -24,7 +24,6 @@ What things you need to install the software and how to install them:
 ```bash
 git clone https://github.com/adarshgogineni/WasteWizard.git
 ```
-
 # Go into the repository
 ```bash
 cd WasteWizard
@@ -41,6 +40,10 @@ source venv/bin/activate
 ```bash
 pip install -r requirements.txt
 ```
+
+# Running the Model:
+Run the jupyter notebook file in the model folder first. This will generate the machine learning model required for the classification. Place the model in the WasteWizard directory.
+
 # On Windows
 ```bash
 set FLASK_APP=app.py
